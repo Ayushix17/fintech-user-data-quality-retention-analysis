@@ -1,0 +1,10 @@
+check_name,affected_records,severity,resolution
+Raw user records,12000,Info,Baseline record count
+Raw transaction records,52340,Info,Baseline record count
+Duplicate transaction IDs,260,High,Kept the first transaction_id occurrence
+Invalid or non-positive transaction amount,302,High,Removed from cleaned transaction table
+Missing payment method,180,Medium,Imputed as Unknown
+Transactions without matching user,80,High,Removed from cleaned transaction table
+Invalid user age,80,Medium,Set to median valid age
+Clean user records,12000,Info,Final cleaned count
+Clean transaction records,51700,Info,Final cleaned count
