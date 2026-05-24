@@ -32,18 +32,11 @@ The Power BI dashboard contains five reporting pages:
 3. **User Segments** - engagement segmentation and at-risk user detail.
 4. **Data Quality** - duplicate, invalid, missing, and orphan record monitoring.
 5. **Transaction Operations** - transaction status, failure rate, transaction type value, and success-rate matrix.
-
-> Dashboard file: `Fintech_User_Data_Quality_Retention_Analysis.pbix`
-
-Recommended screenshots to add to this README:
-
-```text
-images/executive_overview.png
-images/retention_cohorts.png
-images/user_segments.png
-images/data_quality.png
-images/transaction_operations.png
-```
+<img width="490" height="290" alt="image" src="https://github.com/user-attachments/assets/79113164-638e-4056-bb53-20cb70537cb3" />
+<img width="504" height="330" alt="image" src="https://github.com/user-attachments/assets/61bd13ed-9434-4793-8597-863d36d8760c" />
+<img width="506" height="284" alt="User-segments" src="https://github.com/user-attachments/assets/973c764a-b390-4d7d-84a7-e8762e1c7811" />
+<img width="508" height="285" alt="Data-Quality" src="https://github.com/user-attachments/assets/a1222e38-ad2a-4759-a442-02bbe5501e1d" />
+<img width="1016" height="570" alt="Transaction-Operations" src="https://github.com/user-attachments/assets/039fc213-85b6-44e1-8500-56be88e603fe" />
 
 ## Key Insights
 
