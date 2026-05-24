@@ -1,39 +1,120 @@
 # Fintech User Data Quality and Retention Analysis
 
-Portfolio analytics project using Python, SQL, and Power BI-style reporting to analyze fintech user engagement, transaction quality, and retention patterns across 50,000+ synthetic transaction records.
+An end-to-end data analytics portfolio project using **Python, SQL, and Power BI** to analyze fintech user engagement, transaction quality, and customer retention patterns across **50,000+ transaction records**.
+
+The project simulates a real fintech reporting workflow where raw user and transaction data must be validated, cleaned, modeled, analyzed, and presented through an executive dashboard.
 
 ## Business Objective
 
-The goal is to identify which users, channels, regions, and product categories drive healthy engagement and recurring activity while improving data reliability for downstream reporting.
+Fintech platforms depend on reliable transaction data and repeat user activity. This project answers four business questions:
 
-## Project Highlights
+- Which users and acquisition channels drive engagement?
+- How strong is user retention after the first transaction?
+- Which transaction types, devices, and payment methods perform best?
+- What data quality issues could affect reporting accuracy?
 
-- Generated and analyzed 50,000+ fintech transaction records with realistic data quality issues.
-- Cleaned duplicate, invalid, inconsistent, and missing values using Python.
-- Built retention cohorts, engagement segments, transaction quality metrics, and KPI summary outputs.
-- Created SQL schema and reporting queries for repeatable business analysis.
-- Defined Power BI dashboard pages, data model, and DAX measures for executive reporting.
+## Executive Summary
 
-## Folder Structure
+- Analyzed **52,340 raw transaction records** and **12,000 user records**.
+- Cleaned the dataset down to **51,700 valid transactions** after removing or correcting quality issues.
+- Measured **7.41M total transaction value** across the cleaned dataset.
+- Identified **11,853 active users** and **11,127 repeat users**.
+- Found an overall **success rate of 83.71%** and **failure rate of 8.25%**.
+- Built cohort retention analysis showing month-0 retention at **100%**, with later-month retention averaging around **13-17%**.
+- Segmented users into **Power User, Engaged, Occasional, At Risk, and No Activity** groups.
+
+## Dashboard Preview
+
+The Power BI dashboard contains five reporting pages:
+
+1. **Executive Overview** - high-level KPIs, monthly trends, channel performance, and slicers.
+2. **Retention Cohorts** - cohort heatmap and retention trend by months since first transaction.
+3. **User Segments** - engagement segmentation and at-risk user detail.
+4. **Data Quality** - duplicate, invalid, missing, and orphan record monitoring.
+5. **Transaction Operations** - transaction status, failure rate, transaction type value, and success-rate matrix.
+
+> Dashboard file: `Fintech_User_Data_Quality_Retention_Analysis.pbix`
+
+Recommended screenshots to add to this README:
+
+```text
+images/executive_overview.png
+images/retention_cohorts.png
+images/user_segments.png
+images/data_quality.png
+images/transaction_operations.png
+```
+
+## Key Insights
+
+- **Organic acquisition generated the highest transaction value**, followed by paid search and referral channels.
+- **P2P Transfer and Wallet Load** were the strongest transaction categories by total transaction value.
+- **At-risk users represented a large segment**, indicating an opportunity for reactivation campaigns.
+- **Unknown payment method had the highest failure rate**, suggesting missing payment metadata may be linked to operational issues.
+- **Retention dropped sharply after the first transaction month**, making early lifecycle engagement a critical business priority.
+- Data quality issues such as duplicate transaction IDs, invalid amounts, and orphan transactions could materially distort KPI reporting if not handled.
+
+## Data Quality Checks
+
+| Data Quality Check | Records Affected | Action Taken |
+|---|---:|---|
+| Duplicate transaction IDs | 260 | Kept first valid transaction record |
+| Invalid or non-positive transaction amounts | 302 | Removed from cleaned transaction table |
+| Missing payment method | 180 | Imputed as `Unknown` |
+| Transactions without matching user | 80 | Removed from cleaned transaction table |
+| Invalid user age | 80 | Replaced with median valid age |
+
+## Business Recommendations
+
+- Launch targeted reactivation campaigns for users in the **At Risk** segment.
+- Investigate payment failures by **payment method** and **device type**, especially where payment method is missing or unknown.
+- Add upstream validation for transaction ID uniqueness, positive transaction amounts, and valid user references.
+- Monitor retention by acquisition channel to identify which channels bring higher-quality users.
+- Use monthly KPI reporting to track active users, repeat users, failure rate, and transaction value trends.
+
+## Tools and Skills Demonstrated
+
+- **Python:** data generation, cleaning, validation, feature engineering, cohort analysis.
+- **Pandas and NumPy:** data transformation, aggregation, segmentation, and quality checks.
+- **SQL / SQLite:** relational schema, KPI queries, retention queries, and reporting tables.
+- **Power BI:** data modeling, DAX measures, KPI cards, slicers, matrix heatmaps, and dashboard design.
+- **Data Analysis:** user retention, engagement segmentation, data quality monitoring, and business recommendations.
+
+## Project Structure
 
 ```text
 data/
-  raw/                  Raw generated transaction data
-  processed/            Cleaned datasets ready for SQL and BI
-outputs/                KPI, cohort, segment, and quality summary CSVs
-powerbi/                Dashboard blueprint and DAX measures
-scripts/                Python generation and analysis scripts
-sql/                    SQLite schema and business queries
+  raw/                  Raw generated user and transaction data
+  processed/            Cleaned datasets ready for SQL and Power BI
+outputs/                KPI, cohort, segment, quality, and SQLite outputs
+powerbi/                Dashboard blueprint and DAX measure definitions
+scripts/                Python data generation and analysis scripts
+sql/                    SQL schema and business analysis queries
 ```
 
 ## How To Run
 
+Install dependencies:
+
+```powershell
+pip install -r requirements.txt
+```
+
+Generate raw synthetic data:
+
 ```powershell
 python scripts/generate_data.py
+```
+
+Run cleaning, analysis, and SQLite export:
+
+```powershell
 python scripts/analyze_retention.py
 ```
 
-After running the scripts, import these files into Power BI:
+## Power BI Setup
+
+Import these files into Power BI:
 
 - `data/processed/users_clean.csv`
 - `data/processed/transactions_clean.csv`
@@ -42,38 +123,41 @@ After running the scripts, import these files into Power BI:
 - `outputs/user_segments.csv`
 - `outputs/data_quality_report.csv`
 
-## Core KPIs
+Use these supporting files:
 
-- Total transaction volume
-- Successful transaction value
-- Active users
-- Month-over-month active user change
-- Repeat user rate
-- Failed transaction rate
-- Refund rate
-- Average transactions per active user
-- Monthly cohort retention
-- Data quality issue rate
+- `powerbi/dashboard_blueprint.md`
+- `powerbi/dax_measures.md`
+- `Fintech_User_Data_Quality_Retention_Analysis.pbix`
 
-## SQL Usage
+## SQL Analysis
 
-The Python analysis script creates `outputs/fintech_retention.db`. You can run the queries in `sql/analysis_queries.sql` against that SQLite database.
+The analysis script creates:
 
-## Power BI Deliverable
+```text
+outputs/fintech_retention.db
+```
 
-Use `powerbi/dashboard_blueprint.md` and `powerbi/dax_measures.md` to recreate a dashboard with:
+Run the queries in:
 
-- Executive KPI overview
-- Retention cohort heatmap
-- Engagement and user segmentation
-- Transaction quality monitoring
-- Channel, region, and product performance analysis
+```text
+sql/analysis_queries.sql
+```
+
+Example analyses included:
+
+- Monthly active users and transaction value
+- Repeat user rate by month
+- Acquisition channel performance
+- At-risk user identification
+- Retention cohort reporting
+- Data quality issue summary
 
 ## Resume Summary
 
-**Fintech User Data Quality Retention Analysis | Python, SQL, Power BI**
+**Fintech User Data Quality and Retention Analysis | Python, SQL, Power BI**
 
-- Analyzed 50,000+ user transaction records to identify engagement, retention, and repeat usage patterns.
-- Validated and cleaned inconsistent data, including missing values, duplicate records, invalid statuses, negative amounts, and malformed user attributes.
-- Built SQL-based KPI and cohort analysis for monthly active users, repeat users, transaction success rate, and failed payment patterns.
-- Designed Power BI dashboard logic with executive KPIs, cohort retention views, user segmentation, and data quality monitoring.
+- Analyzed **50,000+ fintech transaction records** to identify user engagement, repeat usage, transaction performance, and retention patterns.
+- Cleaned inconsistent data by handling duplicate transaction IDs, invalid transaction amounts, missing payment methods, orphan user references, and invalid user attributes.
+- Built SQL-based KPI and cohort reporting for active users, repeat users, transaction success rate, failure rate, and monthly retention.
+- Designed a multi-page Power BI dashboard covering executive KPIs, retention cohorts, user segmentation, data quality monitoring, and transaction operations.
+- Delivered business recommendations to improve retention strategy, payment reliability, and reporting accuracy.
